@@ -1,14 +1,660 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://4gx8wynbkda"]
 
-[ext_resource path="res://scripts/level_definition.gd" type="Script" id="1_level"]
+[ext_resource type="Script" uid="uid://djb62krk4seq2" path="res://scripts/level_definition.gd" id="1_level"]
+[ext_resource type="PackedScene" path="res://scenes/level_block.tscn" id="2_p8rgh"]
+[ext_resource type="Script" uid="uid://bpiidwhb620tb" path="res://scripts/level_block.gd" id="3_u3xe6"]
 
-[node name="Level002" type="Node3D"]
+[node name="Level002" type="Node3D" unique_id=1032003213]
 script = ExtResource("1_level")
-ammo_limit = 24
-allowed_color_ids = Array[int]([0, 1, 2, 3, 4])
-target_red = 3
-target_yellow = 3
-target_blue = 3
+ammo_limit = 5
+ball_color_sequence = Array[String](["红色", "黄色", "蓝色"])
 default_layers = 6
-default_width = 5
-default_depth = 2
+
+[node name="Block_0_0_0" type="StaticBody3D" parent="." unique_id=47885850 instance=ExtResource("2_p8rgh")]
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(0, 0, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_0_0_1" type="StaticBody3D" parent="." unique_id=922749480 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(0, 0, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_-1_1_0" type="StaticBody3D" parent="." unique_id=1732961936 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 0.92, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(-1, 1, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-1_1_1" type="StaticBody3D" parent="." unique_id=1600138053 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 0.92, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(-1, 1, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_0_1_0" type="StaticBody3D" parent="." unique_id=244025696 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(0, 1, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_0_1_1" type="StaticBody3D" parent="." unique_id=1365515164 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(0, 1, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_1_1_0" type="StaticBody3D" parent="." unique_id=700108473 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 0.92, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(1, 1, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_1_1_1" type="StaticBody3D" parent="." unique_id=1499716510 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 0.92, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(1, 1, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_-2_2_0" type="StaticBody3D" parent="." unique_id=1268839926 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 1.84, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(-2, 2, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-2_2_1" type="StaticBody3D" parent="." unique_id=511137359 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 1.84, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(-2, 2, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_-1_2_0" type="StaticBody3D" parent="." unique_id=79840231 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 1.84, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(-1, 2, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-1_2_1" type="StaticBody3D" parent="." unique_id=1400041821 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 1.84, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(-1, 2, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_0_2_0" type="StaticBody3D" parent="." unique_id=333030138 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(0, 2, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_0_2_1" type="StaticBody3D" parent="." unique_id=1660770710 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(0, 2, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_1_2_0" type="StaticBody3D" parent="." unique_id=1997865524 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 1.84, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(1, 2, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_1_2_1" type="StaticBody3D" parent="." unique_id=666949925 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 1.84, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(1, 2, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_2_2_0" type="StaticBody3D" parent="." unique_id=130559198 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 1.84, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(2, 2, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_2_2_1" type="StaticBody3D" parent="." unique_id=2062960503 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 1.84, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(2, 2, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_-2_3_0" type="StaticBody3D" parent="." unique_id=334895832 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 2.76, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(-2, 3, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-2_3_1" type="StaticBody3D" parent="." unique_id=180030004 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 2.76, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(-2, 3, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_-1_3_0" type="StaticBody3D" parent="." unique_id=530710075 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 2.76, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(-1, 3, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-1_3_1" type="StaticBody3D" parent="." unique_id=334218039 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 2.76, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(-1, 3, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_0_3_0" type="StaticBody3D" parent="." unique_id=1321714733 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.76, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(0, 3, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_0_3_1" type="StaticBody3D" parent="." unique_id=1578175055 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.76, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(0, 3, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_1_3_0" type="StaticBody3D" parent="." unique_id=229111463 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 2.76, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(1, 3, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_1_3_1" type="StaticBody3D" parent="." unique_id=590481150 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 2.76, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(1, 3, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_2_3_0" type="StaticBody3D" parent="." unique_id=943337925 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 2.76, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(2, 3, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_2_3_1" type="StaticBody3D" parent="." unique_id=1507951025 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 2.76, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(2, 3, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_-2_4_0" type="StaticBody3D" parent="." unique_id=1766272269 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 3.68, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(-2, 4, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-2_4_1" type="StaticBody3D" parent="." unique_id=1405816910 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 3.68, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(-2, 4, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_-1_4_0" type="StaticBody3D" parent="." unique_id=394350079 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 3.68, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(-1, 4, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-1_4_1" type="StaticBody3D" parent="." unique_id=309292382 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 3.68, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(-1, 4, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_1_4_0" type="StaticBody3D" parent="." unique_id=1187350024 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 3.68, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(1, 4, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_1_4_1" type="StaticBody3D" parent="." unique_id=1057384274 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 3.68, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(1, 4, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_2_4_0" type="StaticBody3D" parent="." unique_id=1080116741 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 3.68, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(2, 4, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_2_4_1" type="StaticBody3D" parent="." unique_id=1509462689 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 3.68, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(2, 4, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_-2_5_0" type="StaticBody3D" parent="." unique_id=1127334344 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 4.6, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(-2, 5, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-2_5_1" type="StaticBody3D" parent="." unique_id=1624827563 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 4.6, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(-2, 5, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_0_0_2" parent="." unique_id=582992539 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.92)
+color_id = 2
+metadata/coord = Vector3i(0, 0, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_1_2" parent="." unique_id=946730627 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 0.92, -0.92)
+color_id = 2
+metadata/coord = Vector3i(-1, 1, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_1_2" parent="." unique_id=1096444379 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92, -0.92)
+color_id = 2
+metadata/coord = Vector3i(0, 1, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_1_2" parent="." unique_id=1028856462 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 0.92, -0.92)
+color_id = 2
+metadata/coord = Vector3i(1, 1, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_2_2" parent="." unique_id=1306240449 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 1.84, -0.92)
+color_id = 2
+metadata/coord = Vector3i(-2, 2, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_2_2" parent="." unique_id=1797083512 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 1.84, -0.92)
+color_id = 2
+metadata/coord = Vector3i(-1, 2, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_2_2" parent="." unique_id=1084354138 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84, -0.92)
+color_id = 2
+metadata/coord = Vector3i(0, 2, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_2_2" parent="." unique_id=461647961 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 1.84, -0.92)
+color_id = 2
+metadata/coord = Vector3i(1, 2, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_2_2" parent="." unique_id=58383058 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 1.84, -0.92)
+color_id = 2
+metadata/coord = Vector3i(2, 2, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_3_2" parent="." unique_id=688219458 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 2.76, -0.92)
+color_id = 2
+metadata/coord = Vector3i(-2, 3, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_3_2" parent="." unique_id=916729515 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 2.76, -0.92)
+color_id = 2
+metadata/coord = Vector3i(-1, 3, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_3_2" parent="." unique_id=994189256 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.76, -0.92)
+color_id = 2
+metadata/coord = Vector3i(0, 3, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_3_2" parent="." unique_id=50472960 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 2.76, -0.92)
+color_id = 2
+metadata/coord = Vector3i(1, 3, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_3_2" parent="." unique_id=1450208764 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 2.76, -0.92)
+color_id = 2
+metadata/coord = Vector3i(2, 3, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_4_2" parent="." unique_id=1594988416 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 3.68, -0.92)
+color_id = 2
+metadata/coord = Vector3i(-2, 4, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_4_2" parent="." unique_id=1154497128 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 3.68, -0.92)
+color_id = 2
+metadata/coord = Vector3i(-1, 4, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_4_2" parent="." unique_id=1054595588 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 3.68, -0.92)
+color_id = 2
+metadata/coord = Vector3i(1, 4, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_4_2" parent="." unique_id=562644162 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 3.68, -0.92)
+color_id = 2
+metadata/coord = Vector3i(2, 4, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_5_2" parent="." unique_id=1766671038 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 4.6, -0.92)
+color_id = 2
+metadata/coord = Vector3i(-2, 5, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_5_2" parent="." unique_id=617365747 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 4.6, -0.92)
+color_id = 2
+metadata/coord = Vector3i(-1, 5, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_5_2" parent="." unique_id=2015067067 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 4.6, -0.92)
+color_id = 2
+metadata/coord = Vector3i(1, 5, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_5_2" parent="." unique_id=1236050989 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 4.6, -0.92)
+color_id = 2
+metadata/coord = Vector3i(2, 5, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-3_4_2" parent="." unique_id=1681372639 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.76, 3.68, -0.92)
+color_id = 2
+metadata/coord = Vector3i(-3, 4, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-3_3_2" parent="." unique_id=40461070 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.76, 2.76, -0.92)
+color_id = 2
+metadata/coord = Vector3i(-3, 3, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_3_4_2" parent="." unique_id=1507936445 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.76, 3.68, -0.92)
+color_id = 2
+metadata/coord = Vector3i(3, 4, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_3_3_2" parent="." unique_id=1279068200 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.76, 2.76, -0.92)
+color_id = 2
+metadata/coord = Vector3i(3, 3, -1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_5_0" type="StaticBody3D" parent="." unique_id=415621110 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 4.6, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(-1, 5, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-1_5_1" type="StaticBody3D" parent="." unique_id=384241351 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 4.6, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(-1, 5, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_1_5_0" type="StaticBody3D" parent="." unique_id=1630642266 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 4.6, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(1, 5, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_1_5_1" type="StaticBody3D" parent="." unique_id=1074894606 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 4.6, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(1, 5, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_2_5_0" type="StaticBody3D" parent="." unique_id=875442661 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 4.6, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(2, 5, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_2_5_1" type="StaticBody3D" parent="." unique_id=1949075761 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 4.6, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(2, 5, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_-3_4_1" type="StaticBody3D" parent="." unique_id=1029588924 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.76, 3.68, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(-3, 4, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_-3_3_1" type="StaticBody3D" parent="." unique_id=75094537 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.76, 2.76, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(-3, 3, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_3_4_1" type="StaticBody3D" parent="." unique_id=674905491 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.76, 3.68, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(3, 4, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_3_3_1" type="StaticBody3D" parent="." unique_id=1874381923 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.76, 2.76, 0.92)
+script = ExtResource("3_u3xe6")
+metadata/coord = Vector3i(3, 3, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_-3_4_0" type="StaticBody3D" parent="." unique_id=1970109439 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.76, 3.68, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(-3, 4, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-3_3_0" type="StaticBody3D" parent="." unique_id=655925124 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.76, 2.76, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(-3, 3, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_3_4_0" type="StaticBody3D" parent="." unique_id=387219318 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.76, 3.68, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(3, 4, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_3_3_0" type="StaticBody3D" parent="." unique_id=1397893038 instance=ExtResource("2_p8rgh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.76, 2.76, 0)
+script = ExtResource("3_u3xe6")
+color_id = 1
+metadata/coord = Vector3i(3, 3, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1

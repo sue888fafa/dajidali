@@ -18,6 +18,7 @@ var colors: Array[Color] = [
 	Color("#a855f7"),
 	Color("#00d084")
 ]
+const COLOR_NAMES := ["红色", "黄色", "蓝色", "紫色", "绿色"]
 
 var blocks: Dictionary = {}
 var block_color_ids: Dictionary = {}
@@ -197,7 +198,6 @@ func _build_ui() -> void:
 	ui["level"] = _label(layer, "第 1 / 3 关", Vector2(390, 118), 20, Color("#ffffff"))
 	ui["help"] = _label(layer, "鼠标瞄准 · 左键发射 · R 重置", Vector2(42, 665), 16, Color("#c5d4f2"))
 	ui["status"] = _label(layer, "", Vector2(390, 600), 30, Color("#ffffff"))
-	ui["combo"] = _label(layer, "", Vector2(390, 550), 22, Color("#ffd166"))
 	var next_level_button := Button.new()
 	next_level_button.name = "NextLevelButton"
 	next_level_button.text = "开始下一关"
@@ -231,7 +231,7 @@ func _reset_level() -> void:
 	var ball_sequence := _current_level_ball_sequence()
 	if not ball_sequence.is_empty():
 		current_ball_color_id = ball_sequence[0]
-		next_ball_color_id = ball_sequence[1] if ball_sequence.size() > 1 else _random_level_color()
+		next_ball_color_id = ball_sequence[1 % ball_sequence.size()]
 	else:
 		current_ball_color_id = _random_level_color()
 		next_ball_color_id = _random_level_color()
@@ -330,11 +330,24 @@ func _current_allowed_color_ids() -> Array[int]:
 func _current_level_ball_sequence() -> Array[int]:
 	if not is_instance_valid(current_level_data):
 		return []
-	var configured: Array = current_level_data.get("first_level_ball_sequence")
+	var configured: Array = current_level_data.get("ball_color_sequence")
 	var result: Array[int] = []
-	for color_id in configured:
-		result.append(int(color_id))
+	for value in configured:
+		var color_id := _sequence_value_to_color_id(value)
+		if color_id >= 0:
+			result.append(color_id)
 	return result
+
+func _sequence_value_to_color_id(value: Variant) -> int:
+	if value is int or value is float:
+		var numeric_id := int(value)
+		return numeric_id if numeric_id >= 0 and numeric_id < colors.size() else -1
+	var text := String(value).strip_edges()
+	if text.is_valid_int():
+		var numeric_id := int(text)
+		return numeric_id if numeric_id >= 0 and numeric_id < colors.size() else -1
+	var name_index := COLOR_NAMES.find(text)
+	return name_index if name_index >= 0 else -1
 
 func _random_level_color() -> int:
 	var allowed := _current_allowed_color_ids()
@@ -352,7 +365,7 @@ func _material(color: Color, roughness: float, emission := false) -> StandardMat
 	return material
 
 func _color_name(color_id: int) -> String:
-	return ["红色", "黄色", "蓝色", "紫色", "绿色"][color_id]
+	return COLOR_NAMES[color_id]
 
 func _refresh_ball_ui() -> void:
 	if not ui.has("current_ball"):
@@ -414,8 +427,8 @@ func _fire(target: Vector3) -> void:
 	shots_fired += 1
 	current_ball_color_id = next_ball_color_id
 	var ball_sequence := _current_level_ball_sequence()
-	if shots_fired + 1 < ball_sequence.size():
-		next_ball_color_id = ball_sequence[shots_fired + 1]
+	if not ball_sequence.is_empty():
+		next_ball_color_id = ball_sequence[(shots_fired + 1) % ball_sequence.size()]
 	else:
 		next_ball_color_id = _random_level_color()
 	_refresh_ball_ui()
@@ -506,6 +519,8 @@ func _play_hard_impact(ball: Node3D, impact_position: Vector3) -> void:
 	tween.tween_callback(ball.queue_free)
 
 func _hit_block(block: StaticBody3D, bullet_color_id: int) -> void:
+	if not is_instance_valid(block):
+		return
 	if not blocks.has(block.get_meta("coord")):
 		return
 	var block_color_id: int = block.get_meta("color_id")
@@ -517,25 +532,20 @@ func _hit_block(block: StaticBody3D, bullet_color_id: int) -> void:
 		_spawn_burst(block.global_position, Color("#aab4c4"))
 		return
 	var coord: Vector3i = block.get_meta("coord")
-	status_time = 0.35
-	ui["status"].text = "同色命中"
 	var color_id: int = block.get_meta("color_id")
 	var same_color_neighbors := _same_color_neighbors(coord, color_id)
 	_flash_block(block, true)
 	shake_time = 0.08
 	shake_strength = 0.025
 	_destroy_block(coord)
-	if same_color_neighbors.size() < 2:
-		status_time = 0.8
-		ui["status"].text = "还需要两个相邻同色方块"
-	else:
+	if same_color_neighbors.size() >= 2:
 		_resolve_groups_and_support(same_color_neighbors, color_id)
 	_check_state()
 
 func _destroy_block(coord: Vector3i) -> void:
-	if not blocks.has(coord):
+	var block := _get_valid_block(coord)
+	if block == null:
 		return
-	var block: Node3D = blocks[coord]
 	blocks.erase(coord)
 	var color_id: int = block.get_meta("color_id")
 	block_color_ids.erase(coord)
@@ -547,7 +557,8 @@ func _destroy_block(coord: Vector3i) -> void:
 func _same_color_neighbors(coord: Vector3i, color_id: int) -> Array[Vector3i]:
 	var result: Array[Vector3i] = []
 	for neighbor in _neighbors(coord):
-		if blocks.has(neighbor) and blocks[neighbor].get_meta("color_id") == color_id:
+		var neighbor_block := _get_valid_block(neighbor)
+		if neighbor_block != null and neighbor_block.get_meta("color_id") == color_id:
 			result.append(neighbor)
 	return result
 
@@ -563,10 +574,21 @@ func _collect_connected_same_color(seeds: Array[Vector3i], color_id: int) -> Arr
 		var current: Vector3i = queue.pop_front()
 		connected.append(current)
 		for neighbor in _neighbors(current):
-			if blocks.has(neighbor) and not visited.has(neighbor) and blocks[neighbor].get_meta("color_id") == color_id:
+			var neighbor_block := _get_valid_block(neighbor)
+			if neighbor_block != null and not visited.has(neighbor) and neighbor_block.get_meta("color_id") == color_id:
 				visited[neighbor] = true
 				queue.append(neighbor)
 	return connected
+
+func _get_valid_block(coord: Vector3i) -> StaticBody3D:
+	if not blocks.has(coord):
+		return null
+	var block := blocks[coord] as StaticBody3D
+	if is_instance_valid(block):
+		return block
+	blocks.erase(coord)
+	block_color_ids.erase(coord)
+	return null
 
 func _resolve_groups_and_support(seeds: Array[Vector3i], color_id: int) -> void:
 	var match_group := _collect_connected_same_color(seeds, color_id)
@@ -574,33 +596,37 @@ func _resolve_groups_and_support(seeds: Array[Vector3i], color_id: int) -> void:
 		return
 	for coord in match_group:
 		_destroy_block(coord)
+	var chain_clear_count := match_group.size() + 1
 	combo += 1
 	score += match_group.size() * 25
-	ui["combo"].text = "三消 x%d" % (match_group.size() + 1)
 	shake_time = 0.18
 	shake_strength = 0.05
 	await get_tree().create_timer(0.08).timeout
-	_remove_unsupported()
+	chain_clear_count += _remove_unsupported()
+	_show_clear_rating(chain_clear_count)
+	_check_state()
 
 func _neighbors(coord: Vector3i) -> Array[Vector3i]:
 	return [coord + Vector3i.LEFT, coord + Vector3i.RIGHT, coord + Vector3i.UP, coord + Vector3i.DOWN, coord + Vector3i(0, 0, 1), coord + Vector3i(0, 0, -1)]
 
-func _remove_unsupported() -> void:
+func _remove_unsupported() -> int:
 	var supported := {}
 	var queue := []
-	for coord in blocks.keys():
-		if coord.y == 0:
+	var block_coords := blocks.keys()
+	for coord in block_coords:
+		if _get_valid_block(coord) != null and coord.y == 0:
 			supported[coord] = true
 			queue.append(coord)
 	while not queue.is_empty():
 		var current: Vector3i = queue.pop_front()
 		for neighbor in _neighbors(current):
-			if blocks.has(neighbor) and not supported.has(neighbor):
+			if _get_valid_block(neighbor) != null and not supported.has(neighbor):
 				supported[neighbor] = true
 				queue.append(neighbor)
 	var unsupported := []
-	for coord in blocks.keys():
-		if not supported.has(coord):
+	block_coords = blocks.keys()
+	for coord in block_coords:
+		if _get_valid_block(coord) != null and not supported.has(coord):
 			unsupported.append(coord)
 	for coord in unsupported:
 		_destroy_block(coord)
@@ -609,7 +635,18 @@ func _remove_unsupported() -> void:
 		combo += 1
 		shake_time = 0.3
 		shake_strength = 0.07
-	_check_state()
+	return unsupported.size()
+
+func _show_clear_rating(clear_count: int) -> void:
+	if clear_count < 3:
+		return
+	var rating := "GOOD"
+	if clear_count >= 5:
+		rating = "EXCELLENT!"
+	elif clear_count >= 4:
+		rating = "GREAT"
+	status_time = 0.9
+	ui["status"].text = rating
 
 func _check_state() -> void:
 	_update_target_ui()

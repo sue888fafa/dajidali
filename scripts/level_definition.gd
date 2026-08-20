@@ -18,7 +18,7 @@ const COLORS: Array[Color] = [
 @export var target_blue: int = 3
 @export var target_purple: int = 0
 @export var target_green: int = 0
-@export var first_level_ball_sequence: Array[int] = []
+@export var ball_color_sequence: Array[String] = []
 
 @export_category("默认布局")
 @export var default_layers: int = 5

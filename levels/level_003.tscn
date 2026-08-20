@@ -1,14 +1,877 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene format=3 uid="uid://cj2egjkm2p5dw"]
 
-[ext_resource path="res://scripts/level_definition.gd" type="Script" id="1_level"]
+[ext_resource type="Script" uid="uid://djb62krk4seq2" path="res://scripts/level_definition.gd" id="1_level"]
+[ext_resource type="PackedScene" path="res://scenes/level_block.tscn" id="2_l552e"]
 
-[node name="Level003" type="Node3D"]
+[node name="Level003" type="Node3D" unique_id=1575971651]
 script = ExtResource("1_level")
-ammo_limit = 24
-allowed_color_ids = Array[int]([0, 1, 2, 3, 4])
-target_red = 3
-target_yellow = 3
-target_blue = 3
+ball_color_sequence = Array[String](["黄色", "蓝色", "红色"])
 default_layers = 7
-default_width = 5
-default_depth = 2
+
+[node name="Block_-2_0_0" parent="." unique_id=1222193341 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 4.6, 0)
+color_id = 2
+metadata/coord = Vector3i(-2, 5, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_0_1" parent="." unique_id=1269525368 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 4.6, 0.92)
+color_id = 2
+metadata/coord = Vector3i(-2, 5, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_0_0" parent="." unique_id=1883807475 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 4.6, 0)
+color_id = 2
+metadata/coord = Vector3i(-1, 5, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_0_1" parent="." unique_id=1356576265 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 4.6, 0.92)
+color_id = 2
+metadata/coord = Vector3i(-1, 5, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_0_0" parent="." unique_id=2075061866 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.6, 0)
+color_id = 2
+metadata/coord = Vector3i(0, 5, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_0_1" parent="." unique_id=1242301186 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.6, 0.92)
+color_id = 2
+metadata/coord = Vector3i(0, 5, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_0_0" parent="." unique_id=2125428750 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 4.6, 0)
+color_id = 2
+metadata/coord = Vector3i(1, 5, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_0_1" parent="." unique_id=1375415169 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 4.6, 0.92)
+color_id = 2
+metadata/coord = Vector3i(1, 5, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_0_0" parent="." unique_id=850304232 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 4.6, 0)
+color_id = 2
+metadata/coord = Vector3i(2, 5, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_0_1" parent="." unique_id=1137493459 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 4.6, 0.92)
+color_id = 2
+metadata/coord = Vector3i(2, 5, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_1_0" parent="." unique_id=505586289 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 5.52, 0)
+color_id = 2
+metadata/coord = Vector3i(-2, 6, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_1_1" parent="." unique_id=565864530 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 5.52, 0.92)
+color_id = 2
+metadata/coord = Vector3i(-2, 6, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_1_0" parent="." unique_id=1900246192 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 5.52, 0)
+color_id = 2
+metadata/coord = Vector3i(-1, 6, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_1_1" parent="." unique_id=777399829 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 5.52, 0.92)
+color_id = 2
+metadata/coord = Vector3i(-1, 6, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_1_0" parent="." unique_id=1616868494 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.52, 0)
+color_id = 2
+metadata/coord = Vector3i(0, 6, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_1_1" parent="." unique_id=980788080 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.52, 0.92)
+color_id = 2
+metadata/coord = Vector3i(0, 6, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_1_0" parent="." unique_id=95192873 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 5.52, 0)
+color_id = 2
+metadata/coord = Vector3i(1, 6, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_1_1" parent="." unique_id=401775855 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 5.52, 0.92)
+color_id = 2
+metadata/coord = Vector3i(1, 6, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_1_0" parent="." unique_id=1099201175 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 5.52, 0)
+color_id = 2
+metadata/coord = Vector3i(2, 6, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_1_1" parent="." unique_id=1052343569 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 5.52, 0.92)
+color_id = 2
+metadata/coord = Vector3i(2, 6, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_2_0" parent="." unique_id=1141051582 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 6.44, 0)
+color_id = 2
+metadata/coord = Vector3i(-2, 7, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_2_1" parent="." unique_id=1054470703 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 6.44, 0.92)
+color_id = 2
+metadata/coord = Vector3i(-2, 7, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_2_0" parent="." unique_id=1931451426 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 6.44, 0)
+color_id = 2
+metadata/coord = Vector3i(-1, 7, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_2_1" parent="." unique_id=1026839570 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 6.44, 0.92)
+color_id = 2
+metadata/coord = Vector3i(-1, 7, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_2_0" parent="." unique_id=180214474 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.44, 0)
+color_id = 2
+metadata/coord = Vector3i(0, 7, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_2_1" parent="." unique_id=279867940 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.44, 0.92)
+color_id = 2
+metadata/coord = Vector3i(0, 7, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_2_0" parent="." unique_id=1479627602 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 6.44, 0)
+color_id = 2
+metadata/coord = Vector3i(1, 7, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_2_1" parent="." unique_id=1877470989 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 6.44, 0.92)
+color_id = 2
+metadata/coord = Vector3i(1, 7, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_2_0" parent="." unique_id=1741805463 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 6.44, 0)
+color_id = 2
+metadata/coord = Vector3i(2, 7, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_2_1" parent="." unique_id=1665210145 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 6.44, 0.92)
+color_id = 2
+metadata/coord = Vector3i(2, 7, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_3_0" parent="." unique_id=1460640045 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 7.36, 0)
+color_id = 2
+metadata/coord = Vector3i(-2, 8, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_3_1" parent="." unique_id=953817546 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 7.36, 0.92)
+color_id = 2
+metadata/coord = Vector3i(-2, 8, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_3_0" parent="." unique_id=47126663 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 7.36, 0)
+color_id = 2
+metadata/coord = Vector3i(-1, 8, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_3_1" parent="." unique_id=730965075 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 7.36, 0.92)
+color_id = 2
+metadata/coord = Vector3i(-1, 8, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_3_0" parent="." unique_id=178520020 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.36, 0)
+color_id = 2
+metadata/coord = Vector3i(0, 8, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_3_1" parent="." unique_id=2129978495 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.36, 0.92)
+color_id = 2
+metadata/coord = Vector3i(0, 8, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_3_0" parent="." unique_id=1744729104 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 7.36, 0)
+color_id = 2
+metadata/coord = Vector3i(1, 8, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_3_1" parent="." unique_id=812482596 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 7.36, 0.92)
+color_id = 2
+metadata/coord = Vector3i(1, 8, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_3_0" parent="." unique_id=1396729724 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 7.36, 0)
+color_id = 2
+metadata/coord = Vector3i(2, 8, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_3_1" parent="." unique_id=619211684 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 7.36, 0.92)
+color_id = 2
+metadata/coord = Vector3i(2, 8, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_4_0" parent="." unique_id=1578896542 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 8.28, 0)
+color_id = 2
+metadata/coord = Vector3i(-2, 9, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_4_1" parent="." unique_id=21166751 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 8.28, 0.92)
+color_id = 2
+metadata/coord = Vector3i(-2, 9, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_4_0" parent="." unique_id=553712000 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 8.28, 0)
+color_id = 2
+metadata/coord = Vector3i(-1, 9, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_4_1" parent="." unique_id=365238535 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 8.28, 0.92)
+color_id = 2
+metadata/coord = Vector3i(-1, 9, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_4_0" parent="." unique_id=1532392260 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.28, 0)
+color_id = 2
+metadata/coord = Vector3i(0, 9, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_4_1" parent="." unique_id=1840074347 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.28, 0.92)
+color_id = 2
+metadata/coord = Vector3i(0, 9, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_4_0" parent="." unique_id=585809302 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 8.28, 0)
+color_id = 2
+metadata/coord = Vector3i(1, 9, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_4_1" parent="." unique_id=1111315720 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 8.28, 0.92)
+color_id = 2
+metadata/coord = Vector3i(1, 9, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_4_0" parent="." unique_id=918355958 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 8.28, 0)
+color_id = 2
+metadata/coord = Vector3i(2, 9, 0)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_4_1" parent="." unique_id=1035767041 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 8.28, 0.92)
+color_id = 2
+metadata/coord = Vector3i(2, 9, 1)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_5_0" parent="." unique_id=1380036464 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 9.2, 0)
+color_id = 1
+metadata/coord = Vector3i(-2, 10, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-2_5_1" parent="." unique_id=1544765368 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 9.2, 0.92)
+color_id = 1
+metadata/coord = Vector3i(-2, 10, 1)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-1_5_0" parent="." unique_id=526034457 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 9.2, 0)
+color_id = 1
+metadata/coord = Vector3i(-1, 10, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-1_5_1" parent="." unique_id=1968550051 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 9.2, 0.92)
+color_id = 1
+metadata/coord = Vector3i(-1, 10, 1)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_0_5_0" parent="." unique_id=830802486 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.2, 0)
+color_id = 1
+metadata/coord = Vector3i(0, 10, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_0_5_1" parent="." unique_id=1129315737 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.2, 0.92)
+color_id = 1
+metadata/coord = Vector3i(0, 10, 1)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_1_5_0" parent="." unique_id=637751886 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 9.2, 0)
+color_id = 1
+metadata/coord = Vector3i(1, 10, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_1_5_1" parent="." unique_id=2024477457 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 9.2, 0.92)
+color_id = 1
+metadata/coord = Vector3i(1, 10, 1)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_2_5_0" parent="." unique_id=1586642684 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 9.2, 0)
+color_id = 1
+metadata/coord = Vector3i(2, 10, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_2_5_1" parent="." unique_id=736839369 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 9.2, 0.92)
+color_id = 1
+metadata/coord = Vector3i(2, 10, 1)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-2_6_0" parent="." unique_id=1838028992 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 10.12, 0)
+color_id = 1
+metadata/coord = Vector3i(-2, 11, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-2_6_2" parent="." unique_id=888361475 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 10.12, 1.84)
+color_id = 1
+metadata/coord = Vector3i(-2, 11, 2)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-2_6_1" parent="." unique_id=1800873219 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 10.12, 0.92)
+color_id = 1
+metadata/coord = Vector3i(-2, 11, 1)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-1_6_0" parent="." unique_id=488411137 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 10.12, 0)
+color_id = 1
+metadata/coord = Vector3i(-1, 11, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-1_6_1" parent="." unique_id=1012242119 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 10.12, 0.92)
+color_id = 1
+metadata/coord = Vector3i(-1, 11, 1)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_0_6_0" parent="." unique_id=1714267179 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.12, 0)
+color_id = 1
+metadata/coord = Vector3i(0, 11, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_0_6_1" parent="." unique_id=1197559537 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.12, 0.92)
+color_id = 1
+metadata/coord = Vector3i(0, 11, 1)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_1_6_0" parent="." unique_id=46553581 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 10.12, 0)
+color_id = 1
+metadata/coord = Vector3i(1, 11, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_1_6_1" parent="." unique_id=423943075 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 10.12, 0.92)
+color_id = 1
+metadata/coord = Vector3i(1, 11, 1)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_2_6_0" parent="." unique_id=343303276 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 10.12, 0)
+color_id = 1
+metadata/coord = Vector3i(2, 11, 0)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_2_6_1" parent="." unique_id=801879222 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 10.12, 0.92)
+color_id = 1
+metadata/coord = Vector3i(2, 11, 1)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-1_6_2" parent="." unique_id=1222330141 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 10.12, 1.84)
+color_id = 1
+metadata/coord = Vector3i(-1, 11, 2)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_0_6_2" parent="." unique_id=1506532086 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.12, 1.84)
+color_id = 1
+metadata/coord = Vector3i(0, 11, 2)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_1_6_2" parent="." unique_id=719066677 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 10.12, 1.84)
+color_id = 1
+metadata/coord = Vector3i(1, 11, 2)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_2_6_2" parent="." unique_id=295968212 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 10.12, 1.84)
+color_id = 1
+metadata/coord = Vector3i(2, 11, 2)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-2_5_2" parent="." unique_id=1678737104 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 9.2, 1.84)
+color_id = 1
+metadata/coord = Vector3i(-2, 10, 2)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-1_5_2" parent="." unique_id=2104020364 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 9.2, 1.84)
+color_id = 1
+metadata/coord = Vector3i(-1, 10, 2)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_0_5_2" parent="." unique_id=1076418590 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.2, 1.84)
+color_id = 1
+metadata/coord = Vector3i(0, 10, 2)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_1_5_2" parent="." unique_id=1376015543 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 9.2, 1.84)
+color_id = 1
+metadata/coord = Vector3i(1, 10, 2)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_2_5_2" parent="." unique_id=1628457205 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 9.2, 1.84)
+color_id = 1
+metadata/coord = Vector3i(2, 10, 2)
+metadata/color_id = 1
+metadata/base_color = Color(1, 0.83137256, 0, 1)
+metadata/hp = 1
+
+[node name="Block_-2_0_2" parent="." unique_id=1611550881 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 4.6, 1.84)
+color_id = 2
+metadata/coord = Vector3i(-2, 5, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_0_2" parent="." unique_id=1636388200 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 4.6, 1.84)
+color_id = 2
+metadata/coord = Vector3i(-1, 5, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_0_2" parent="." unique_id=563878647 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.6, 1.84)
+color_id = 2
+metadata/coord = Vector3i(0, 5, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_0_2" parent="." unique_id=1150294335 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 4.6, 1.84)
+color_id = 2
+metadata/coord = Vector3i(1, 5, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_0_2" parent="." unique_id=335140649 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 4.6, 1.84)
+color_id = 2
+metadata/coord = Vector3i(2, 5, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_1_2" parent="." unique_id=1800912842 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 5.52, 1.84)
+color_id = 2
+metadata/coord = Vector3i(-2, 6, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_1_2" parent="." unique_id=719038963 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 5.52, 1.84)
+color_id = 2
+metadata/coord = Vector3i(-1, 6, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_1_2" parent="." unique_id=1738292155 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.52, 1.84)
+color_id = 2
+metadata/coord = Vector3i(0, 6, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_1_2" parent="." unique_id=1402122411 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 5.52, 1.84)
+color_id = 2
+metadata/coord = Vector3i(1, 6, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_1_2" parent="." unique_id=1336817736 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 5.52, 1.84)
+color_id = 2
+metadata/coord = Vector3i(2, 6, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_2_2" parent="." unique_id=1592935464 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 6.44, 1.84)
+color_id = 2
+metadata/coord = Vector3i(2, 7, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_3_2" parent="." unique_id=394234195 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 7.36, 1.84)
+color_id = 2
+metadata/coord = Vector3i(2, 8, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_3_2" parent="." unique_id=1293702445 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 7.36, 1.84)
+color_id = 2
+metadata/coord = Vector3i(1, 8, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_4_2" parent="." unique_id=247812937 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 8.28, 1.84)
+color_id = 2
+metadata/coord = Vector3i(1, 9, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_4_2" parent="." unique_id=960548946 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.28, 1.84)
+color_id = 2
+metadata/coord = Vector3i(0, 9, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_4_2" parent="." unique_id=1985014162 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 8.28, 1.84)
+color_id = 2
+metadata/coord = Vector3i(-1, 9, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_4_2" parent="." unique_id=1925085068 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 8.28, 1.84)
+color_id = 2
+metadata/coord = Vector3i(-2, 9, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_3_2" parent="." unique_id=1189514722 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 7.36, 1.84)
+color_id = 2
+metadata/coord = Vector3i(-2, 8, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-2_2_2" parent="." unique_id=79909320 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.84, 6.44, 1.84)
+color_id = 2
+metadata/coord = Vector3i(-2, 7, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_2_2" parent="." unique_id=359948600 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 6.44, 1.84)
+color_id = 2
+metadata/coord = Vector3i(-1, 7, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_2_2" parent="." unique_id=167083914 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.44, 1.84)
+color_id = 2
+metadata/coord = Vector3i(0, 7, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_1_2_2" parent="." unique_id=266974174 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.92, 6.44, 1.84)
+color_id = 2
+metadata/coord = Vector3i(1, 7, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_3_2" parent="." unique_id=564745205 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.36, 1.84)
+color_id = 2
+metadata/coord = Vector3i(0, 8, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_-1_3_2" parent="." unique_id=504948965 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.92, 7.36, 1.84)
+color_id = 2
+metadata/coord = Vector3i(-1, 8, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_2_4_2" parent="." unique_id=959910035 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.84, 8.28, 1.84)
+color_id = 2
+metadata/coord = Vector3i(2, 9, 2)
+metadata/color_id = 2
+metadata/base_color = Color(0, 0.6117647, 1, 1)
+metadata/hp = 1
+
+[node name="Block_0_-4_1" parent="." unique_id=83525231 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.92, 0.92)
+metadata/coord = Vector3i(0, 1, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_0_-3_1" parent="." unique_id=798856730 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84, 0.92)
+metadata/coord = Vector3i(0, 2, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_0_-2_1" parent="." unique_id=2008393483 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.76, 0.92)
+metadata/coord = Vector3i(0, 3, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
+
+[node name="Block_0_-1_1" parent="." unique_id=1135026624 instance=ExtResource("2_l552e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.68, 0.92)
+metadata/coord = Vector3i(0, 4, 1)
+metadata/color_id = 0
+metadata/base_color = Color(1, 0.2, 0.37254903, 1)
+metadata/hp = 1
