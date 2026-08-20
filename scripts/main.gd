@@ -22,6 +22,7 @@ const COLOR_NAMES := ["红色", "黄色", "蓝色", "紫色", "绿色"]
 
 var blocks: Dictionary = {}
 var block_color_ids: Dictionary = {}
+var dropped_blocks: Array[Node3D] = []
 var bullets: Array[Dictionary] = []
 var color_targets: Dictionary = {}
 var color_destroyed := {0: 0, 1: 0, 2: 0, 3: 0, 4: 0}
@@ -218,6 +219,7 @@ func _label(parent: Node, text: String, pos: Vector2, size: int, color: Color) -
 	return label
 
 func _reset_level() -> void:
+	_clear_dropped_blocks()
 	_load_current_level()
 	for bullet in bullets:
 		_free_bullet_visuals(bullet)
@@ -260,6 +262,7 @@ func _discover_level_scenes() -> void:
 	level_scene_paths.sort()
 
 func _load_current_level() -> void:
+	_clear_dropped_blocks()
 	if is_instance_valid(current_level_instance):
 		current_level_instance.queue_free()
 		current_level_instance = null
@@ -628,14 +631,109 @@ func _remove_unsupported() -> int:
 	for coord in block_coords:
 		if _get_valid_block(coord) != null and not supported.has(coord):
 			unsupported.append(coord)
-	for coord in unsupported:
-		_destroy_block(coord)
+	for index in range(unsupported.size()):
+		var coord: Vector3i = unsupported[index]
+		var block := _get_valid_block(coord)
+		if block != null:
+			_drop_block(block, index)
 	if unsupported.size() > 0:
 		score += unsupported.size() * 15
 		combo += 1
 		shake_time = 0.3
 		shake_strength = 0.07
 	return unsupported.size()
+
+func _drop_block(block: StaticBody3D, drop_index: int) -> void:
+	if not is_instance_valid(block):
+		return
+	var coord: Vector3i = block.get_meta("coord")
+	var color_id: int = int(block.get_meta("color_id"))
+	blocks.erase(coord)
+	block_color_ids.erase(coord)
+	color_destroyed[color_id] += 1
+	score += 10
+
+	block.collision_layer = 0
+	block.collision_mask = 0
+	dropped_blocks.append(block)
+
+	var mesh := block.get_node_or_null("MeshInstance3D") as MeshInstance3D
+	var material := mesh.material_override as StandardMaterial3D if mesh != null else null
+	if material == null:
+		material = _material(colors[color_id], 0.25, true)
+		if mesh != null:
+			mesh.material_override = material
+	else:
+		material = material.duplicate() as StandardMaterial3D
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		if mesh != null:
+			mesh.material_override = material
+
+	var start_position := block.global_position
+	var drop_result := _find_drop_landing(start_position, block)
+	var landing_position: Vector3 = drop_result["position"]
+	var landing_rotation := block.global_rotation + Vector3(
+		randf_range(-1.2, 1.2),
+		randf_range(-1.2, 1.2),
+		randf_range(-1.2, 1.2)
+	)
+	var fall_distance := absf(start_position.y - landing_position.y)
+	var fall_duration := clampf(0.14 + fall_distance * 0.035, 0.14, 0.42)
+	var faded_color := material.albedo_color
+	faded_color.a = 0.0
+
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.tween_interval(minf(float(drop_index) * 0.025, 0.18))
+	tween.tween_property(block, "global_position", landing_position, fall_duration)
+	tween.parallel().tween_property(block, "global_rotation", landing_rotation, fall_duration)
+	tween.tween_callback(_on_block_landed.bind(block, color_id))
+	tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
+	tween.tween_property(block, "scale", Vector3(1.08, 0.45, 1.08), 0.06)
+	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	tween.tween_property(block, "scale", Vector3.ZERO, 0.12)
+	tween.parallel().tween_property(material, "albedo_color", faded_color, 0.12)
+	tween.tween_callback(_finish_dropped_block.bind(block))
+
+func _find_drop_landing(start_position: Vector3, block: StaticBody3D) -> Dictionary:
+	var ground_position := start_position
+	ground_position.y = FLOOR_Y + 0.15 + (BLOCK_SIZE * 0.86) * 0.5
+	var ray_start := start_position + Vector3.UP * 0.05
+	var ray_end := Vector3(start_position.x, FLOOR_Y - 1.0, start_position.z)
+	var query := PhysicsRayQueryParameters3D.create(ray_start, ray_end)
+	query.collision_mask = 1
+	query.exclude = [block.get_rid()]
+	var hit := get_world_3d().direct_space_state.intersect_ray(query)
+	if hit.is_empty():
+		return {"position": ground_position, "hit_block": false}
+
+	var collider := hit.get("collider") as Node
+	if collider is StaticBody3D and _is_active_level_block(collider as StaticBody3D):
+		var block_position: Vector3 = hit["position"]
+		block_position.y += (BLOCK_SIZE * 0.86) * 0.5
+		return {"position": block_position, "hit_block": true}
+	return {"position": ground_position, "hit_block": false}
+
+func _is_active_level_block(block: StaticBody3D) -> bool:
+	if not is_instance_valid(block) or not block.has_meta("coord"):
+		return false
+	var coord: Vector3i = block.get_meta("coord")
+	return _get_valid_block(coord) == block
+
+func _on_block_landed(block: StaticBody3D, color_id: int) -> void:
+	if is_instance_valid(block):
+		_spawn_burst(block.global_position, colors[color_id].lightened(0.12))
+
+func _finish_dropped_block(block: StaticBody3D) -> void:
+	dropped_blocks.erase(block)
+	if is_instance_valid(block):
+		block.queue_free()
+
+func _clear_dropped_blocks() -> void:
+	for block in dropped_blocks:
+		if is_instance_valid(block):
+			block.queue_free()
+	dropped_blocks.clear()
 
 func _show_clear_rating(clear_count: int) -> void:
 	if clear_count < 3:
