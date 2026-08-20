@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource path="res://scripts/level_block.gd" type="Script" id="1_block"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_block"]
+size = Vector3(0.7912, 0.7912, 0.7912)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_block"]
+size = Vector3(0.7912, 0.7912, 0.7912)
+
+[node name="LevelBlock" type="StaticBody3D"]
+script = ExtResource("1_block")
+input_ray_pickable = true
+collision_layer = 1
+collision_mask = 1
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_block")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_block")

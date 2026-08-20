@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource path="res://scripts/level_definition.gd" type="Script" id="1_level"]
+
+[node name="Level003" type="Node3D"]
+script = ExtResource("1_level")
+ammo_limit = 24
+allowed_color_ids = Array[int]([0, 1, 2, 3, 4])
+target_red = 3
+target_yellow = 3
+target_blue = 3
+default_layers = 7
+default_width = 5
+default_depth = 2

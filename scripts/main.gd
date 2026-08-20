@@ -1,12 +1,6 @@
 extends Node3D
 
 const BLOCK_SIZE := 0.92
-const LEVEL_COUNT := 3
-const LEVEL_LAYERS := [5, 6, 7]
-const LEVEL_AMMO := [3, 24, 24]
-const FIRST_LEVEL_BALLS := [0, 1, 2]
-const WIDTH := 5
-const DEPTH := 2
 const STARTING_AMMO := 24
 const BALL_SPEED := 18.0
 const TRAIL_SEGMENTS := 12
@@ -17,7 +11,7 @@ const DRAG_THRESHOLD_PIXELS := 8.0
 const ROTATION_SENSITIVITY_X := 0.01
 const ROTATION_SENSITIVITY_Y := 0.007
 
-var colors := [
+var colors: Array[Color] = [
 	Color("#ff335f"),
 	Color("#ffd400"),
 	Color("#009cff"),
@@ -35,6 +29,9 @@ var next_ball_color_id := 0
 var ammo := STARTING_AMMO
 var shots_fired := 0
 var current_level := 0
+var level_scene_paths: Array[String] = []
+var current_level_instance: Node3D
+var current_level_data: Node
 var score := 0
 var combo := 0
 var state := "playing"
@@ -60,6 +57,7 @@ var model_pitch := 0.0
 func _ready() -> void:
 	_build_world()
 	_build_ui()
+	_discover_level_scenes()
 	_reset_level()
 
 func _process(delta: float) -> void:
@@ -160,12 +158,12 @@ func _build_world() -> void:
 
 	model_pivot = Node3D.new()
 	model_pivot.name = "ModelPivot"
-	_update_model_pivot()
+	model_pivot.position = Vector3.ZERO
 	add_child(model_pivot)
 
 	model_root = Node3D.new()
 	model_root.name = "ModelRoot"
-	model_root.position = -model_pivot.position
+	model_root.position = Vector3.ZERO
 	model_pivot.add_child(model_root)
 
 	aim_marker = MeshInstance3D.new()
@@ -194,6 +192,8 @@ func _build_ui() -> void:
 	ui["target_red"] = _label(layer, "红色：0/3", Vector2(390, 28), 20, colors[0])
 	ui["target_blue"] = _label(layer, "蓝色：0/3", Vector2(390, 58), 20, colors[2])
 	ui["target_yellow"] = _label(layer, "黄色：0/3", Vector2(390, 88), 20, colors[1])
+	ui["target_purple"] = _label(layer, "紫色：0/0", Vector2(390, 148), 20, colors[3])
+	ui["target_green"] = _label(layer, "绿色：0/0", Vector2(390, 178), 20, colors[4])
 	ui["level"] = _label(layer, "第 1 / 3 关", Vector2(390, 118), 20, Color("#ffffff"))
 	ui["help"] = _label(layer, "鼠标瞄准 · 左键发射 · R 重置", Vector2(42, 665), 16, Color("#c5d4f2"))
 	ui["status"] = _label(layer, "", Vector2(390, 600), 30, Color("#ffffff"))
@@ -218,12 +218,7 @@ func _label(parent: Node, text: String, pos: Vector2, size: int, color: Color) -
 	return label
 
 func _reset_level() -> void:
-	_update_model_pivot()
-	for child in model_root.get_children():
-		if child.name.begins_with("Block_"):
-			child.queue_free()
-	blocks.clear()
-	block_color_ids.clear()
+	_load_current_level()
 	for bullet in bullets:
 		_free_bullet_visuals(bullet)
 	bullets.clear()
@@ -233,12 +228,13 @@ func _reset_level() -> void:
 	combo = 0
 	color_destroyed = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0}
 	color_targets = _current_level_targets()
-	if _is_first_level():
-		current_ball_color_id = FIRST_LEVEL_BALLS[0]
-		next_ball_color_id = FIRST_LEVEL_BALLS[1]
+	var ball_sequence := _current_level_ball_sequence()
+	if not ball_sequence.is_empty():
+		current_ball_color_id = ball_sequence[0]
+		next_ball_color_id = ball_sequence[1] if ball_sequence.size() > 1 else _random_level_color()
 	else:
-		current_ball_color_id = randi_range(0, colors.size() - 1)
-		next_ball_color_id = randi_range(0, colors.size() - 1)
+		current_ball_color_id = _random_level_color()
+		next_ball_color_id = _random_level_color()
 	state = "playing"
 	status_time = 0.0
 	mouse_was_down = false
@@ -250,93 +246,99 @@ func _reset_level() -> void:
 	model_pitch = 0.0
 	model_pivot.rotation = Vector3.ZERO
 	ui["next_level_button"].hide()
-	_create_blocks()
 	_refresh_ball_ui()
 	_update_target_ui()
 
-func _update_model_pivot() -> void:
-	if not is_instance_valid(model_pivot):
+func _discover_level_scenes() -> void:
+	level_scene_paths.clear()
+	var directory := DirAccess.open("res://levels")
+	if directory == null:
 		return
-	model_pivot.position = Vector3(
-		0.0,
-		(_current_level_layers() - 1) * BLOCK_SIZE * 0.5,
-		(DEPTH - 1) * BLOCK_SIZE * 0.5
-	)
-	if is_instance_valid(model_root):
-		model_root.position = -model_pivot.position
+	for filename in directory.get_files():
+		if filename.begins_with("level_") and filename.ends_with(".tscn"):
+			level_scene_paths.append("res://levels/" + filename)
+	level_scene_paths.sort()
 
-func _current_level_layers() -> int:
-	return int(LEVEL_LAYERS[current_level])
+func _load_current_level() -> void:
+	if is_instance_valid(current_level_instance):
+		current_level_instance.queue_free()
+		current_level_instance = null
+	blocks.clear()
+	block_color_ids.clear()
+	model_pivot.position = Vector3.ZERO
+	model_pivot.rotation = Vector3.ZERO
+	model_root.position = Vector3.ZERO
+	if level_scene_paths.is_empty():
+		return
+	current_level = clampi(current_level, 0, level_scene_paths.size() - 1)
+	var packed_scene := load(level_scene_paths[current_level]) as PackedScene
+	if packed_scene == null:
+		return
+	current_level_instance = packed_scene.instantiate() as Node3D
+	model_root.add_child(current_level_instance)
+	current_level_data = current_level_instance
+	_collect_level_blocks(current_level_instance)
+	_center_loaded_level()
 
-func _is_first_level() -> bool:
-	return current_level == 0
+func _collect_level_blocks(node: Node) -> void:
+	if node is StaticBody3D and node.has_meta("coord"):
+		var coord: Vector3i = node.get_meta("coord")
+		blocks[coord] = node
+		block_color_ids[coord] = node.get_meta("color_id")
+	for child in node.get_children():
+		_collect_level_blocks(child)
+
+func _center_loaded_level() -> void:
+	if blocks.is_empty():
+		return
+	var bounds := AABB()
+	var has_bounds := false
+	for block in blocks.values():
+		var point: Vector3 = block.global_position
+		if not has_bounds:
+			bounds = AABB(point, Vector3.ZERO)
+			has_bounds = true
+		else:
+			bounds = bounds.expand(point)
+	var center := bounds.position + bounds.size * 0.5
+	model_pivot.position = center
+	model_root.position = -center
 
 func _current_level_ammo() -> int:
-	return int(LEVEL_AMMO[current_level])
+	return int(current_level_data.get("ammo_limit")) if is_instance_valid(current_level_data) else STARTING_AMMO
 
 func _current_level_targets() -> Dictionary:
-	return {0: 3, 1: 3, 2: 3}
+	if not is_instance_valid(current_level_data):
+		return {0: 3, 1: 3, 2: 3}
+	return {
+		0: int(current_level_data.get("target_red")),
+		1: int(current_level_data.get("target_yellow")),
+		2: int(current_level_data.get("target_blue")),
+		3: int(current_level_data.get("target_purple")),
+		4: int(current_level_data.get("target_green"))
+	}
 
 func _current_allowed_color_ids() -> Array[int]:
-	if _is_first_level():
-		return [0, 1, 2]
-	return [0, 1, 2, 3, 4]
+	if not is_instance_valid(current_level_data):
+		return [0, 1, 2, 3, 4]
+	var configured: Array = current_level_data.get("allowed_color_ids")
+	var result: Array[int] = []
+	for color_id in configured:
+		result.append(int(color_id))
+	return result if not result.is_empty() else [0, 1, 2, 3, 4]
 
-func _create_blocks() -> void:
-	for y in range(_current_level_layers()):
-		for x in range(WIDTH):
-			for z in range(DEPTH):
-				var coord := Vector3i(x - 2, y, z)
-				var color_id := _color_for(coord)
-				_spawn_block(coord, color_id)
+func _current_level_ball_sequence() -> Array[int]:
+	if not is_instance_valid(current_level_data):
+		return []
+	var configured: Array = current_level_data.get("first_level_ball_sequence")
+	var result: Array[int] = []
+	for color_id in configured:
+		result.append(int(color_id))
+	return result
 
-func _color_for(coord: Vector3i) -> int:
-	var fixed_clusters := {
-		Vector3i(-1, 2, 0): 0,
-		Vector3i(0, 2, 0): 0,
-		Vector3i(1, 2, 0): 0,
-		Vector3i(-2, 1, 0): 1,
-		Vector3i(-2, 2, 0): 1,
-		Vector3i(-2, 3, 0): 1,
-		Vector3i(2, 1, 1): 2,
-		Vector3i(2, 2, 1): 2,
-		Vector3i(2, 3, 1): 2,
-		Vector3i(-1, 4, 1): 3,
-		Vector3i(0, 4, 1): 3,
-		Vector3i(1, 4, 1): 3,
-		Vector3i(-1, 0, 1): 4,
-		Vector3i(0, 0, 1): 4,
-		Vector3i(1, 0, 1): 4
-	}
-	if fixed_clusters.has(coord):
-		return fixed_clusters[coord]
-	var allowed_colors := _current_allowed_color_ids()
-	return allowed_colors[absi(coord.x * 3 + coord.y * 2 + coord.z) % allowed_colors.size()]
-
-func _spawn_block(coord: Vector3i, color_id: int) -> void:
-	var body := StaticBody3D.new()
-	body.name = "Block_%d_%d_%d" % [coord.x, coord.y, coord.z]
-	body.position = Vector3(coord.x, coord.y, coord.z) * BLOCK_SIZE
-	body.set_meta("coord", coord)
-	body.set_meta("color_id", color_id)
-	body.set_meta("hp", 1)
-	body.set_meta("base_color", colors[color_id])
-
-	var mesh_instance := MeshInstance3D.new()
-	var mesh := BoxMesh.new()
-	mesh.size = Vector3.ONE * (BLOCK_SIZE * 0.86)
-	mesh_instance.mesh = mesh
-	mesh_instance.material_override = _material(colors[color_id], 0.75, true)
-	body.add_child(mesh_instance)
-
-	var collision := CollisionShape3D.new()
-	var shape := BoxShape3D.new()
-	shape.size = Vector3.ONE * (BLOCK_SIZE * 0.86)
-	collision.shape = shape
-	body.add_child(collision)
-	model_root.add_child(body)
-	blocks[coord] = body
-	block_color_ids[coord] = color_id
+func _random_level_color() -> int:
+	var allowed := _current_allowed_color_ids()
+	return allowed[randi_range(0, allowed.size() - 1)]
 
 func _material(color: Color, roughness: float, emission := false) -> StandardMaterial3D:
 	var material := StandardMaterial3D.new()
@@ -411,10 +413,11 @@ func _fire(target: Vector3) -> void:
 	bullets.append({"node": ball, "velocity": velocity, "life": 3.0, "color_id": fired_color_id, "trail": trail})
 	shots_fired += 1
 	current_ball_color_id = next_ball_color_id
-	if _is_first_level() and shots_fired + 1 < FIRST_LEVEL_BALLS.size():
-		next_ball_color_id = FIRST_LEVEL_BALLS[shots_fired + 1]
+	var ball_sequence := _current_level_ball_sequence()
+	if shots_fired + 1 < ball_sequence.size():
+		next_ball_color_id = ball_sequence[shots_fired + 1]
 	else:
-		next_ball_color_id = randi_range(0, colors.size() - 1)
+		next_ball_color_id = _random_level_color()
 	_refresh_ball_ui()
 
 func _update_bullets(delta: float) -> void:
@@ -614,7 +617,7 @@ func _check_state() -> void:
 		state = "won"
 		ui["status"].text = "第 %d 关通关！" % (current_level + 1)
 		var next_level_button: Button = ui["next_level_button"]
-		next_level_button.text = "开始下一关" if current_level < LEVEL_COUNT - 1 else "重新开始"
+		next_level_button.text = "开始下一关" if current_level < level_scene_paths.size() - 1 else "重新开始"
 		next_level_button.show()
 	elif ammo <= 0 and bullets.is_empty():
 		state = "lost"
@@ -635,7 +638,7 @@ func _on_next_level_pressed() -> void:
 		return
 	if state != "won":
 		return
-	if current_level < LEVEL_COUNT - 1:
+	if current_level < level_scene_paths.size() - 1:
 		current_level += 1
 	else:
 		current_level = 0
@@ -645,6 +648,8 @@ func _update_target_ui() -> void:
 	ui["target_red"].text = "红色：%d/%d" % [_target_progress(0), color_targets.get(0, 0)]
 	ui["target_blue"].text = "蓝色：%d/%d" % [_target_progress(2), color_targets.get(2, 0)]
 	ui["target_yellow"].text = "黄色：%d/%d" % [_target_progress(1), color_targets.get(1, 0)]
+	ui["target_purple"].text = "紫色：%d/%d" % [_target_progress(3), color_targets.get(3, 0)]
+	ui["target_green"].text = "绿色：%d/%d" % [_target_progress(4), color_targets.get(4, 0)]
 
 func _target_progress(color_id: int) -> int:
 	return mini(color_destroyed.get(color_id, 0), color_targets.get(color_id, 0))
@@ -692,4 +697,4 @@ func _update_ui() -> void:
 	ui["ammo"].text = "炮弹：%d" % ammo
 	ui["score"].text = "得分：%d    连击：%d" % [score, combo]
 	ui["shots_fired"].text = "发球次数：%d" % shots_fired
-	ui["level"].text = "第 %d / %d 关" % [current_level + 1, LEVEL_COUNT]
+	ui["level"].text = "第 %d / %d 关" % [current_level + 1, level_scene_paths.size()]
