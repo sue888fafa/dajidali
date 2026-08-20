@@ -6,12 +6,13 @@ const WIDTH := 5
 const DEPTH := 2
 const STARTING_AMMO := 24
 const BALL_SPEED := 18.0
+const TRAIL_SEGMENTS := 6
+const TRAIL_SPACING := 0.14
 const FLOOR_Y := -1.35
 const LONG_PRESS_SECONDS := 0.18
 const DRAG_THRESHOLD_PIXELS := 8.0
 const ROTATION_SENSITIVITY_X := 0.01
 const ROTATION_SENSITIVITY_Y := 0.007
-const MAX_MODEL_PITCH := deg_to_rad(35.0)
 
 var colors := [
     Color("#ff335f"),
@@ -29,12 +30,14 @@ var color_destroyed := {0: 0, 1: 0, 2: 0, 3: 0, 4: 0}
 var current_ball_color_id := 0
 var next_ball_color_id := 0
 var ammo := STARTING_AMMO
+var shots_fired := 0
 var score := 0
 var combo := 0
 var state := "playing"
 var camera: Camera3D
 var launch_anchor: Node3D
 var current_ball_visual: MeshInstance3D
+var model_pivot: Node3D
 var model_root: Node3D
 var aim_marker: MeshInstance3D
 var aim_target := Vector3.ZERO
@@ -151,9 +154,19 @@ func _build_world() -> void:
     current_ball_visual.mesh = current_ball_mesh
     launch_anchor.add_child(current_ball_visual)
 
+    model_pivot = Node3D.new()
+    model_pivot.name = "ModelPivot"
+    model_pivot.position = Vector3(
+        0.0,
+        (LAYERS - 1) * BLOCK_SIZE * 0.5,
+        (DEPTH - 1) * BLOCK_SIZE * 0.5
+    )
+    add_child(model_pivot)
+
     model_root = Node3D.new()
     model_root.name = "ModelRoot"
-    add_child(model_root)
+    model_root.position = -model_pivot.position
+    model_pivot.add_child(model_root)
 
     aim_marker = MeshInstance3D.new()
     var marker_mesh := SphereMesh.new()
@@ -169,7 +182,7 @@ func _build_ui() -> void:
     var panel := ColorRect.new()
     panel.color = Color(0.02, 0.04, 0.1, 0.72)
     panel.position = Vector2(24, 20)
-    panel.size = Vector2(310, 188)
+    panel.size = Vector2(310, 220)
     layer.add_child(panel)
 
     ui["title"] = _label(layer, "BLOCKFALL CANNON", Vector2(42, 32), 24, Color("#ffffff"))
@@ -177,6 +190,7 @@ func _build_ui() -> void:
     ui["score"] = _label(layer, "得分：0    连击：0", Vector2(42, 96), 16, Color("#b9d7ff"))
     ui["current_ball"] = _label(layer, "当前：红色", Vector2(42, 128), 17, colors[0])
     ui["next_ball"] = _label(layer, "下一颗：红色", Vector2(42, 157), 17, colors[0].lightened(0.15))
+    ui["shots_fired"] = _label(layer, "发球次数：0", Vector2(42, 186), 17, Color("#b9d7ff"))
     ui["target_red"] = _label(layer, "红色：0/3", Vector2(390, 28), 20, colors[0])
     ui["target_blue"] = _label(layer, "蓝色：0/3", Vector2(390, 58), 20, colors[2])
     ui["target_yellow"] = _label(layer, "黄色：0/3", Vector2(390, 88), 20, colors[1])
@@ -200,10 +214,10 @@ func _reset_level() -> void:
     blocks.clear()
     block_color_ids.clear()
     for bullet in bullets:
-        if is_instance_valid(bullet.node):
-            bullet.node.queue_free()
+        _free_bullet_visuals(bullet)
     bullets.clear()
     ammo = STARTING_AMMO
+    shots_fired = 0
     score = 0
     combo = 0
     color_destroyed = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0}
@@ -218,7 +232,7 @@ func _reset_level() -> void:
     has_dragged = false
     model_yaw = 0.0
     model_pitch = 0.0
-    model_root.rotation = Vector3.ZERO
+    model_pivot.rotation = Vector3.ZERO
     _create_blocks()
     _refresh_ball_ui()
 
@@ -269,8 +283,6 @@ func _spawn_block(coord: Vector3i, color_id: int) -> void:
     mesh_instance.material_override = _material(colors[color_id], 0.75, true)
     body.add_child(mesh_instance)
 
-    _add_outline_edges(body)
-
     var collision := CollisionShape3D.new()
     var shape := BoxShape3D.new()
     shape.size = Vector3.ONE * (BLOCK_SIZE * 0.86)
@@ -279,35 +291,6 @@ func _spawn_block(coord: Vector3i, color_id: int) -> void:
     model_root.add_child(body)
     blocks[coord] = body
     block_color_ids[coord] = color_id
-
-func _add_outline_edges(parent: Node3D) -> void:
-    var edge_material := _material(Color("#080d16"), 0.9)
-    var extent := BLOCK_SIZE * 0.90
-    var half := extent * 0.5
-    var thickness := 0.035
-    var edges := [
-        {"size": Vector3(extent, thickness, thickness), "position": Vector3(0, half, half)},
-        {"size": Vector3(extent, thickness, thickness), "position": Vector3(0, half, -half)},
-        {"size": Vector3(extent, thickness, thickness), "position": Vector3(0, -half, half)},
-        {"size": Vector3(extent, thickness, thickness), "position": Vector3(0, -half, -half)},
-        {"size": Vector3(thickness, extent, thickness), "position": Vector3(half, 0, half)},
-        {"size": Vector3(thickness, extent, thickness), "position": Vector3(half, 0, -half)},
-        {"size": Vector3(thickness, extent, thickness), "position": Vector3(-half, 0, half)},
-        {"size": Vector3(thickness, extent, thickness), "position": Vector3(-half, 0, -half)},
-        {"size": Vector3(thickness, thickness, extent), "position": Vector3(half, half, 0)},
-        {"size": Vector3(thickness, thickness, extent), "position": Vector3(half, -half, 0)},
-        {"size": Vector3(thickness, thickness, extent), "position": Vector3(-half, half, 0)},
-        {"size": Vector3(thickness, thickness, extent), "position": Vector3(-half, -half, 0)}
-    ]
-    for index in range(edges.size()):
-        var edge := MeshInstance3D.new()
-        edge.name = "OutlineEdge_%d" % index
-        var edge_mesh := BoxMesh.new()
-        edge_mesh.size = edges[index]["size"]
-        edge.mesh = edge_mesh
-        edge.material_override = edge_material
-        edge.position = edges[index]["position"]
-        parent.add_child(edge)
 
 func _material(color: Color, roughness: float, emission := false) -> StandardMaterial3D:
     var material := StandardMaterial3D.new()
@@ -347,8 +330,8 @@ func _update_aim() -> void:
 
 func _rotate_model(relative_motion: Vector2) -> void:
     model_yaw += relative_motion.x * ROTATION_SENSITIVITY_X
-    model_pitch = clamp(model_pitch + relative_motion.y * ROTATION_SENSITIVITY_Y, -MAX_MODEL_PITCH, MAX_MODEL_PITCH)
-    model_root.rotation = Vector3(model_pitch, model_yaw, 0.0)
+    model_pitch -= relative_motion.y * ROTATION_SENSITIVITY_Y
+    model_pivot.rotation = Vector3(model_pitch, model_yaw, 0.0)
 
 func _fire(target: Vector3) -> void:
     if state != "playing" or ammo <= 0:
@@ -365,7 +348,10 @@ func _fire(target: Vector3) -> void:
     var origin := launch_anchor.global_position
     var direction := (target - origin).normalized()
     ball.global_position = origin
-    bullets.append({"node": ball, "velocity": direction * BALL_SPEED, "life": 3.0, "color_id": fired_color_id})
+    var velocity := direction * BALL_SPEED
+    var trail := _create_ball_trail(origin, colors[fired_color_id])
+    bullets.append({"node": ball, "velocity": velocity, "life": 3.0, "color_id": fired_color_id, "trail": trail})
+    shots_fired += 1
     current_ball_color_id = next_ball_color_id
     next_ball_color_id = randi_range(0, colors.size() - 1)
     _refresh_ball_ui()
@@ -375,6 +361,7 @@ func _update_bullets(delta: float) -> void:
         var bullet: Dictionary = bullets[index]
         var ball: Node3D = bullet.node
         if not is_instance_valid(ball):
+            _free_bullet_visuals(bullet)
             bullets.remove_at(index)
             continue
         var start := ball.global_position
@@ -386,17 +373,51 @@ func _update_bullets(delta: float) -> void:
             var collider: Object = hit.collider
             if collider is StaticBody3D and collider.has_meta("coord"):
                 _hit_block(collider, bullet["color_id"])
-            ball.queue_free()
+            _free_bullet_visuals(bullet)
             bullets.remove_at(index)
             _check_state()
             continue
         ball.global_position += step
+        _update_ball_trail(bullet, ball.global_position)
         bullet.life -= delta
         bullets[index] = bullet
         if bullet.life <= 0.0:
-            ball.queue_free()
+            _free_bullet_visuals(bullet)
             bullets.remove_at(index)
             _check_state()
+
+func _create_ball_trail(origin: Vector3, color: Color) -> Array[MeshInstance3D]:
+    var trail: Array[MeshInstance3D] = []
+    for index in range(TRAIL_SEGMENTS):
+        var segment := MeshInstance3D.new()
+        var mesh := SphereMesh.new()
+        var size := 0.11 * (1.0 - float(index) / TRAIL_SEGMENTS * 0.65)
+        mesh.radius = size
+        mesh.height = size * 2.0
+        segment.mesh = mesh
+        var material := _material(color, 0.1, true)
+        material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+        material.albedo_color.a = 0.42 * (1.0 - float(index) / TRAIL_SEGMENTS * 0.75)
+        segment.material_override = material
+        segment.global_position = origin
+        add_child(segment)
+        trail.append(segment)
+    return trail
+
+func _update_ball_trail(bullet: Dictionary, ball_position: Vector3) -> void:
+    var trail: Array = bullet["trail"]
+    var direction: Vector3 = bullet["velocity"].normalized()
+    for index in range(trail.size()):
+        var segment: MeshInstance3D = trail[index]
+        if is_instance_valid(segment):
+            segment.global_position = ball_position - direction * TRAIL_SPACING * (index + 1)
+
+func _free_bullet_visuals(bullet: Dictionary) -> void:
+    if is_instance_valid(bullet.get("node")):
+        bullet["node"].queue_free()
+    for segment in bullet.get("trail", []):
+        if is_instance_valid(segment):
+            segment.queue_free()
 
 func _hit_block(block: StaticBody3D, bullet_color_id: int) -> void:
     if not blocks.has(block.get_meta("coord")):
@@ -559,3 +580,4 @@ func _update_ui() -> void:
         return
     ui["ammo"].text = "炮弹：%d" % ammo
     ui["score"].text = "得分：%d    连击：%d" % [score, combo]
+    ui["shots_fired"].text = "发球次数：%d" % shots_fired
